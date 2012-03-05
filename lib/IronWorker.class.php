@@ -161,11 +161,10 @@ class IronWorker{
                 return false;
             }
             foreach($valid_files as $file) {
-echo "Adding_file ($base_dir.$file, $file)";
                 $zip->addFile($base_dir.$file, $file);
             }
             $zip->close();
-            return $destination;
+            return file_exists($destination);
         }else{
             return false;
         }
@@ -254,7 +253,6 @@ echo "Adding_file ($base_dir.$file, $file)";
         $this->addHeaderToArchive($zipFilename, $filename);
 
         $this->setPostHeaders();
-        $this->headers['Content-Length'] = filesize($zipFilename);
         $ts = time();
         $runtime_type = $this->runtimeFileType($filename);
         $sendingData = array(
@@ -270,31 +268,12 @@ echo "Adding_file ($base_dir.$file, $file)";
             "options" => array(),
             "access_key" => $name
         );
-
-        $sendingData = json_encode($sendingData);
-        $eol = "\r\n";
-        $data = '';
-        $mime_boundary = md5(time());
-        $data .= '--' . $mime_boundary . $eol;
-        $data .= 'Content-Disposition: form-data; name="data"' . $eol . $eol;
-        $data .= $sendingData . $eol;
-        $data .= '--' . $mime_boundary . $eol;
-        $data .= 'Content-Disposition: form-data; name="file"; filename=$zipFilename' . $eol;
-        $data .= 'Content-Type: text/plain' . $eol;
-        $data .= 'Content-Transfer-Encoding: binary' . $eol . $eol;
-        $data .= $this->getFileContent($zipFilename) . $eol;
-        $data .= "--" . $mime_boundary . "--" . $eol . $eol; // finish with two eol's!!
- 
-        $params = array('http' => array(
-                  'method' => 'POST',
-                  'header' => 'Content-Type: multipart/form-data; boundary=' . $mime_boundary . $eol,
-                  'content' => $data
-               ));
-        $ctx = stream_context_create($params);
-        $destination = "{$this->url}projects/{$this->project_id}/codes?oauth={$this->token}";
-        $this->debug('destination', $destination);
-
-        $response = file_get_contents($destination, false, $ctx);
+        $url = "projects/{$this->project_id}/codes";
+        $post = array(
+            "data" => json_encode($sendingData),
+            "file"=>"@".$zipFilename,
+        );
+        $response = $this->apiCall(self::POST, $url, array(), $post);
         return self::json_decode($response);
     }
 
@@ -540,7 +519,7 @@ echo "Adding_file ($base_dir.$file, $file)";
         }
     }
 
-    private function apiCall($type, $url, $params = array()){
+    private function apiCall($type, $url, $params = array(), $raw_post_data = null){
         $url = "{$this->url}$url";
 
         $s = curl_init();
@@ -558,7 +537,11 @@ echo "Adding_file ($base_dir.$file, $file)";
                 $this->debug('apiCall url', $url);
                 curl_setopt($s, CURLOPT_URL,  $url);
                 curl_setopt($s, CURLOPT_POST, true);
-                curl_setopt($s, CURLOPT_POSTFIELDS, json_encode($params));
+                if ($raw_post_data){
+                    curl_setopt($s, CURLOPT_POSTFIELDS, $raw_post_data);
+                }else{
+                    curl_setopt($s, CURLOPT_POSTFIELDS, json_encode($params));
+                }
                 break;
             case self::GET:
                 $fullUrl = $url . '?' . http_build_query($params);
