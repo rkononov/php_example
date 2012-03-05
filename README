@@ -1,0 +1,8 @@
+Getting Started
+---------------
+
+1 Set up proper credentials in config.ini (iron_worker,iron_mq and s3)
+2 Deploy to Phpfog or CloudControl
+3 Add any picture to IronMQ queue or in input box
+4 Wait until picture processed
+5 Profit!
