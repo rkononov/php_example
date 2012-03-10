@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . "/lib/S3.php";
+require_once dirname(__FILE__) . "/lib/Imgur.php";
 require_once dirname(__FILE__) . "/lib/IronMQ.class.php";
 
 $args = getArgs();
@@ -33,17 +33,10 @@ imagecopyresized( $tmp_img, $im, 0, 0, 0, 0, $new_width, $new_height, $width, $h
 // save thumbnail into a file
 imagejpeg( $tmp_img, $output_file );
 // Upload image.
-$s3 = new S3($payload->s3->access_key, $payload->s3->secret_key);
-$bucket = $payload->s3->bucket;
-
-if ($s3->putObjectFile($output_file, $bucket, $file, S3::ACL_PUBLIC_READ)) {
+$link = upload_file($output_file);
 $ironmq = new IronMQ(array(
     'token' => $payload->iron_mq->token,
     'project_id' => $payload->iron_mq->project_id
 ));
-$ironmq->postMessage("output_queue", "https://$bucket.s3.amazonaws.com/$file");
-}else{
-    echo "File not uploaded!";
-}
-
+$ironmq->postMessage("output_queue", $link);
 ?>
