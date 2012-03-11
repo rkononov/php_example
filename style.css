@@ -1,0 +1,271 @@
+/*
+html5doctor.com Reset Stylesheet
+v1.6
+Last Updated: 2010-08-18
+Author: Richard Clark - http://richclarkdesign.com
+Twitter: @rich_clark
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+}
+
+body {
+  line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+  display:block;
+}
+
+nav ul {
+  list-style:none;
+}
+
+blockquote, q {
+  quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content:'';
+  content:none;
+}
+
+a {
+  margin:0;
+  padding:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+  background-color:#ff9;
+  color:#000;
+  text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+  background-color:#ff9;
+  color:#000;
+  font-style:italic;
+  font-weight:bold;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+  border-bottom:1px dotted inherit;
+  cursor:help;
+}
+
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+  display:block;
+  height:1px;
+  border:0;
+  border-top:1px solid #cccccc;
+  margin:1em 0;
+  padding:0;
+}
+
+input, select {
+  vertical-align:middle;
+}
+
+h3 {
+  margin: .2em 0 .5em;
+}
+
+small {
+  font-size: 11px;
+  margin: 10px 0 0;
+  display: inline-block;
+  border-bottom: 1px dashed;
+  padding: 3px 0;
+  color: #608A9F;
+}
+
+h1, h2, h3, h4 {
+  font-family: Conv_gillsans, sans-serif;
+}
+
+
+/*-------------------------------
+            style
+-------------------------------*/
+
+body {
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: url(images/body-noise.png), url(images/body-lines.png);
+  background-color: #E9F8FB;
+  color: #454F54;
+}
+
+body > header {
+  background-color: #363F49;
+  padding: 20px 0 20px;
+  text-align: center;
+  color: #CFD6D8;
+  text-shadow: 0 2px 2px black;
+  font-size: 21px;
+  margin: 0 0 50px;
+  box-shadow: 0 4px 5px rgba(0,0,0,.5) inset, 0 2px 2px rgba(0,0,0,.5);
+  border-bottom: 1px solid #222;
+  position: relative;
+  background-image: url(images/body-noise.png), url(images/stretch-line.png), url(images/stripe-gradient.png);
+  font-family: 'Alegreya', serif;
+  height: 20px;
+  background-position: 0 0, 0 2px, 0 100%;
+  font-style: italic;
+  font-weight: bold;
+}
+
+body > footer {
+  position: absolute;
+  bottom: 150px;
+  width: 100%;
+  text-align: center;
+}
+
+body > footer a {
+  display: inline-block;
+  box-shadow: 0 1px 5px rgba(0,0,0,.5);
+  border-radius: 5px;
+}
+
+body > footer a img {
+  margin-right: -4px;
+}
+
+#steps {
+  padding: 0 20px;
+  min-width: 1000px;
+}
+
+.box-connector {
+  background: url(images/box-connection.png) no-repeat 0 60%;
+  width: 20px;
+  height: 380px;
+  float: left;
+}
+
+.transform-step {
+  width: 30%;
+  background: rgba(137, 173, 194, .5);
+  border-radius: 5px;
+  float: left;
+  min-height: 380px;
+  padding: 10px;
+  position: relative;
+  box-shadow: 0 7px 6px -7px rgba(0,0,0,.75);
+}
+
+.transform-step h2 {
+  color: white;
+  text-align: center;
+  background: rgba(0, 76, 117, .75);
+  padding: 20px 0 15px;
+  margin: -10px -10px 20px -10px;
+  border-radius: 5px 5px 0 0;
+  font-family: Conv_gillsans, sans-serif;
+  text-transform: uppercase;
+  font-size: 16px;
+  text-shadow: 0 -1px 0 black;
+  font-weight: normal;
+  font-style: italic;
+  height: 20px;
+  background-image: url(images/body-lines.png);
+}
+
+.transform-step:last-child {
+  margin: 0;
+}
+
+#step-1 {
+  background-image: url(images/step-1-bg.png);
+  background-repeat: no-repeat;
+  background-position: 50% 55%;
+}
+
+#step-2 {
+  background-image: url(images/step-2-bg.png);
+  background-repeat: no-repeat;
+  background-position: 50% 55%;
+}
+
+#step-3 {
+  background-image: url(images/step-3-bg.png);
+  background-repeat: no-repeat;
+  background-position: 54% 56%;
+}
+
+#upload-form {
+  position: absolute;
+  top: 290px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+code {
+  background: rgba(255, 255, 255, .3);
+  padding: 10px 0 10px 5px;
+  font-size: 11px;
+  display: block;
+  line-height: 1.5em;
+  box-shadow: 0 1px 0 rgba(245,255,255,.6), 0 1px 0 rgba(0,20,20,.2) inset;
+  border-radius: 5px;
+}
+
+.gears-bg {
+  background: url(images/gears-bg.png);
+  width: 100%;
+  height: 250px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#result {
+  background: rgba(0, 179, 0, .8);
+  padding: 10px;
+  color: white;
+  font-size: 14px;
+  width: 150px;
+  text-align: center;
+  position: absolute;
+  top: 220px;
+  left: 50%;
+  margin-left: -86px;
+  display: none;
+}
