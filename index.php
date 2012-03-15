@@ -76,18 +76,7 @@ $ironmq->postMessage("input_queue",
 
       <h2>IronWorker</h2>
       <div id="output_queue">
-        <div class="processed-image">
-          <img src="http://i.imgur.com/F1uM5.jpg" alt="">
-          <a href="http://i.imgur.com/F1uM5.jpg" title="">http://i.imgur.com/F1uM5.jpg</a>
-        </div>
-        <div class="processed-image">
-          <img src="http://i.imgur.com/71uxd.jpg">
-          <a href="http://i.imgur.com/71uxd.jpg" title="">http://i.imgur.com/71uxd.jpg</a>
-        </div>
-        <div class="processed-image">
-          <img src="http://i.imgur.com/1Ihnp.jpg" alt="">
-          <a href="http://i.imgur.com/1Ihnp.jpg" title="">http://i.imgur.com/1Ihnp.jpg</a>
-        </div>
+       
       </div>
     </div>    
   </section>
@@ -170,7 +159,6 @@ $ironmq->postMessage("input_queue",
                     var task_id = queue_worker(data);
                     var image = '<img width="200" src="' + data + '"/><br/>';
                     
-                    $('#step-3 .spinner').show();
                     var html = '<tr><td>' + image + '</td><td><span id="' +
                         task_id + '_thumb"><img width="200" src="images/ajax-loader-circle.gif"/><br/></span></td><td><span id="' +
                         task_id + '_rotated"><img width="200" src="images/ajax-loader-circle.gif"/><br/></span></td><td><span id="' +
@@ -182,7 +170,6 @@ $ironmq->postMessage("input_queue",
                 if (data) {
                     $('#step-3 .spinner').fadeOut(400);
                     $('#step-3').animate({'background-position-y': '40%'}, 500);
-                    $('#output_queue').fadeIn(1000);
                     $('#processed-image').animate({left: '40%', opacity: '1'}, 1000, function(){
                       $(this).animate({left: '-10%', opacity: '0'}, 1000, function(){
                         $(this).css('left', '100%');
@@ -193,6 +180,21 @@ $ironmq->postMessage("input_queue",
                     });
 
                     var parsed = jQuery.parseJSON(data);
+
+                    $('#output_queue').append('<div class="processed-image">'+
+                      '<img src="'+parsed["thumbnail"]+'" >'+
+                      '<a href="'+parsed["thumbnail"]+'" >'+parsed["thumbnail"]+'</a></div>');
+                    
+                    $('#output_queue').append('<div class="processed-image">'+
+                      '<img src="'+parsed["rotated"]+'" >'+
+                      '<a href="'+parsed["rotated"]+'" >'+parsed["rotated"]+'</a></div>');
+                    
+                    $('#output_queue').append('<div class="processed-image">'+
+                      '<img src="'+parsed["grayscale"]+'" >'+
+                      '<a href="'+parsed["grayscale"]+'" >'+parsed["grayscale"]+'</a></div>');
+                    
+                    $('#output_queue').fadeIn(1000);
+
                     $("#" + parsed["task_id"] + "_thumb").html('<img src="' + parsed["thumbnail"] + '"/>');
                     $("#" + parsed["task_id"] + "_rotated").html('<img src="' + parsed["rotated"] + '"/>');
                     $("#" + parsed["task_id"] + "_grayscale").html('<img src="' + parsed["grayscale"] + '"/>');
@@ -234,6 +236,9 @@ $ironmq->postMessage("input_queue",
               $('#send-images img').delay(1000).animate({'opacity': '.75'}, 1000, function(){
                   $('#send-images img').animate({'opacity': '.1'}, 1000);
               });
+
+              $('#step-3 .spinner').delay(1500).fadeIn(500);
+              $('#output_queue').delay(1500).fadeOut(500);
             }
           );
         });
