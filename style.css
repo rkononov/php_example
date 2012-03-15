@@ -211,7 +211,7 @@ body > footer a img {
 }
 
 #step-2 {
-  background-image: url(images/step-2-bg.png);
+  /*background-image: url(images/step-2-bg.png);*/
   background-repeat: no-repeat;
   background-position: 50% 55%;
   background-color: transparent;
@@ -379,4 +379,96 @@ code {
 
 .clearfix, .clearfloat {
   display : block;
+}
+
+.gear-small {
+  width: 69px;
+  height: 69px;
+  position:absolute;
+  top:10px;
+  left:12px;
+}
+
+.gear-small.shadow {
+  top:11px;
+}
+
+.gear-big {
+  width: 116px;
+  height: 116px;
+  position: absolute;
+  top:44px;
+  left:57px;
+}
+
+.gear-big.shadow {
+  top:43px;
+}
+
+#gears {
+  overflow: hidden;
+  width: 180px;
+  height: 180px;
+  position: absolute;
+  top: 120px;
+  left: 90px;
+}
+
+#gears.moving .gear-small {
+  -webkit-animation:  smallGearRotate 2s infinite linear;
+  -moz-animation:     smallGearRotate 2s infinite linear both;
+  -ms-animation:      smallGearRotate 2s infinite linear both;
+  animation:          smallGearRotate 2s infinite linear both;
+}
+
+#gears.moving .gear-big {
+  -webkit-animation:  bigGearRotate 2.5s infinite linear both;
+  -moz-animation:     bigGearRotate 2.5s infinite linear both;
+  -ms-animation-name: bigGearRotate 2.5s infinite linear both;
+  animation-name:     bigGearRotate 2.5s infinite linear both;
+}
+
+.no-svg .footer-box {
+  .content {
+    background: url(/assets/gears.png) no-repeat 25px 40px;
+  }
+  #gears {
+    display: none;
+  }
+}
+
+@-webkit-keyframes smallGearRotate {
+  from {  -webkit-transform:rotate(0deg); }
+  to   {  -webkit-transform:rotate(-360deg); }
+}
+@-webkit-keyframes bigGearRotate {
+  from {  -webkit-transform:rotate(0deg); }
+  to   {  -webkit-transform:rotate(360deg); }
+}
+
+@-moz-keyframes smallGearRotate {
+  from {  -moz-transform:rotate(0deg); }
+  to   {  -moz-transform:rotate(-360deg); }
+}
+@-moz-keyframes bigGearRotate {
+  from {  -moz-transform:rotate(0deg); }
+  to   {  -moz-transform:rotate(360deg); }
+}
+
+@-ms-keyframes smallGearRotate {
+  from {  -ms-transform:rotate(0deg); }
+  to   {  -ms-transform:rotate(-360deg); }
+}
+@-ms-keyframes bigGearRotate {
+  from {  -ms-transform:rotate(0deg); }
+  to   {  -ms-transform:rotate(360deg); }
+}
+
+@-keyframes smallGearRotate {
+  from {  transform:rotate(0deg); }
+  to   {  transform:rotate(-360deg); }
+}
+@-keyframes bigGearRotate {
+  from {  transform:rotate(0deg); }
+  to   {  transform:rotate(360deg); }
 }

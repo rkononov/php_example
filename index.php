@@ -30,7 +30,7 @@
 
   <section id="steps">
     <div id="step-1" class="transform-step">
-      <h2 style="font-size: 14px;line-height: 1.2em;">Add picture via posting url to IronMQ</h2>
+      <h2 style="line-height: 1.2em;">Add picture via posting url to IronMQ</h2>
       
       <code id='code-example'>
         <pre>
@@ -68,6 +68,15 @@ $ironmq->postMessage("input_queue",
         <div id="receive-images">
             <div id="processed-image"></div>
             <img src="images/arrow-left.png" alt="">
+        </div>
+
+        <div id="gears">
+          <div class="gear-small">
+            <object data="images/gear-small.svg" type="image/svg+xml" ></object>
+          </div>
+          <div class="gear-big">
+            <object data="images/gear-big.svg" type="image/svg+xml" ></object>
+          </div>
         </div>
     </div>
 
@@ -173,6 +182,7 @@ $ironmq->postMessage("input_queue",
                     $('#processed-image').animate({left: '40%', opacity: '1'}, 1000, function(){
                       $(this).animate({left: '-10%', opacity: '0'}, 1000, function(){
                         $(this).css('left', '100%');
+                        $('#gears').delay(800).removeClass('moving');
                       });
                     });
                     $('#receive-images img').animate({'opacity': '.75'}, 1000, function(){
@@ -228,6 +238,7 @@ $ironmq->postMessage("input_queue",
               $('#posted-image').slideDown(200, function(){
               });
 
+              $('#gears').delay(800).addClass('moving');
               $('#process-image').delay(1000).animate({left: '40%', opacity: '1'}, 1000, function(){
                   $(this).animate({left: '95%', opacity: '0'}, 1000, function(){
                       $(this).css('left', '-10%');
