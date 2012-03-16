@@ -472,3 +472,26 @@ code {
   from {  transform:rotate(0deg); }
   to   {  transform:rotate(360deg); }
 }
+
+#samples {
+  padding: 30px 0 20px;
+  display: none;
+}
+
+#samples img {
+  width: 100px;
+  cursor: default;
+  border-radius: 10px;
+}
+
+#samples img.selected {
+  background: rgba(65, 95, 113, .3);
+}
+
+#samples img:hover {
+  box-shadow: 0 0px 5px hsl(200, 60%, 40%);
+}
+
+#sample-toggler {
+  cursor: pointer;
+}

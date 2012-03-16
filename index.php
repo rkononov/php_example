@@ -50,11 +50,16 @@ $ironmq->postMessage("input_queue",
         <h3>Or add url to pic in form below</h3>
         <form action="/mq/postMessage.php" id="sendMessageForm">
             <input id = "pic_url" type="text" name="url" placeholder="Search..."/>
-            <input type="submit" value="Add picture"/>
+            <input type="submit" value="Push to Queue"/>
         </form>
-        <small id="lib-toggler">Or even simply choose one from our set</small>
-        <div>
-          <img src="" alt="">
+        <small id="sample-toggler">Or even simply choose one from our set</small>
+        <div id="samples">
+          <img src="images/samples/irondog.png" alt="">
+          <img src="images/samples/transformer.png" alt="">
+          <img src="images/samples/android.png" alt="">
+          <img src="images/samples/walle.png" alt="">
+          <img src="images/samples/r2d2.png" alt="">
+          <img src="images/samples/calculon.png" alt="">
         </div><!-- / -->
         <div id="result">Message posted</div>
       </div>
@@ -165,6 +170,16 @@ $ironmq->postMessage("input_queue",
         return task_id;
     }
     $(document).ready(function () {
+
+        $('#sample-toggler').click(function(){
+          $('#samples').slideToggle(300);
+        });
+        $('#samples img').click(function(){
+          $(this).parent().children('img').removeClass('selected');
+          $(this).addClass('selected');
+          $('#pic_url').val($(this).attr('src'));
+        });
+
         setInterval(function () {
             $.get('/mq/getMessage.php?queue_name=input_queue', null, function (data) {
                 if (data) {
