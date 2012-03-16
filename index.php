@@ -52,7 +52,10 @@ $ironmq->postMessage("input_queue",
             <input id = "pic_url" type="text" name="url" placeholder="Search..."/>
             <input type="submit" value="Add picture"/>
         </form>
-        <small>Or even simply choose one from our set</small>
+        <small id="lib-toggler">Or even simply choose one from our set</small>
+        <div>
+          <img src="" alt="">
+        </div><!-- / -->
         <div id="result">Message posted</div>
       </div>
       
@@ -172,7 +175,7 @@ $ironmq->postMessage("input_queue",
                         task_id + '_thumb"><img width="200" src="images/ajax-loader-circle.gif"/><br/></span></td><td><span id="' +
                         task_id + '_rotated"><img width="200" src="images/ajax-loader-circle.gif"/><br/></span></td><td><span id="' +
                         task_id + '_grayscale"><img width="200" src="images/ajax-loader-circle.gif"/><br/></span></td></tr>';
-                    $('#output tbody tr:first').before(html);
+                    $('#output tbody').prepend(html);
                 }
             });
             $.get('/mq/getMessage.php?queue_name=output_queue', null, function (data) {
