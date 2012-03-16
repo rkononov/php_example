@@ -202,6 +202,10 @@ body > footer a img {
   margin: 0;
 }
 
+.transform-step:last-child h2 {
+  background: rgba(33, 107, 186, .75);
+}
+
 #step-1 {
   /*background-image: url(images/step-1-bg.png);*/
   background-repeat: no-repeat;
@@ -390,7 +394,7 @@ code {
 }
 
 #result-flow {
-  margin: 80px auto 0;
+  margin: 60px auto 0;
   width: 600px;
 }
 
