@@ -123,6 +123,10 @@ h1, h2, h3, h4 {
             style
 -------------------------------*/
 
+html, body {
+  height: 100%;
+}
+
 body {
   position: relative;
   font-family: Arial, Helvetica, sans-serif;
@@ -345,9 +349,12 @@ code {
   display: none;
 }
 
+#result-flow {
+  display: none;
+}
+
 #output {
   min-width: 590px;
-  display: none;
 }
 
 #output img {

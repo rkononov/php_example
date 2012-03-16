@@ -30,7 +30,7 @@
 
   <section id="steps">
     <div id="step-1" class="transform-step">
-      <h2 style="line-height: 1.2em;">Add picture via posting url to IronMQ</h2>
+      <h2 style="line-height: 1.2em;">Add picture via posting url to <b>IronMQ</b></h2>
       
       <code id='code-example'>
         <pre>
@@ -91,7 +91,7 @@ $ironmq->postMessage("input_queue",
     <div id="step-3" class="transform-step">
       <img src="images/ajax-loader.gif" class="spinner">
 
-      <h2>IronWorker</h2>
+      <h2>And See <b>IronWorker</b> Magick</h2>
       <div id="output_queue">
        
       </div>
@@ -101,7 +101,7 @@ $ironmq->postMessage("input_queue",
   <div class="clearfloat"></div>
 
   <section id="result-flow">
-    <h2>And see processed images</h2>
+    <h2>Processed images</h2>
     <table id="output">
       <thead>
         <tr>
@@ -192,8 +192,9 @@ $ironmq->postMessage("input_queue",
                     task_id + '_rotated"><img src="images/ajax-loader-circle.gif"/></span></td><td><span id="' +
                     task_id + '_grayscale"><img src="images/ajax-loader-circle.gif"/></span></td></tr>';
                 $('#output tbody').prepend(html);
-                if( !('#output').is(":visible") ){
-                  $('#output').slideDown(500);
+                
+                if( !('#result-flow').is(":visible") ){
+                  $('#result-flow').slideDown(500);
                 }
               }
             });
