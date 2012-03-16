@@ -177,6 +177,7 @@ $ironmq->postMessage("input_queue",
             });
             $.get('/mq/getMessage.php?queue_name=output_queue', null, function (data) {
                 if (data) {
+                    $('#gears').addClass('moving');
                     $('#step-3 .spinner').fadeOut(400);
                     $('#step-3').animate({'background-position-y': '40%'}, 500);
                     $('#processed-image').animate({left: '40%', opacity: '1'}, 1000, function(){
@@ -191,6 +192,8 @@ $ironmq->postMessage("input_queue",
 
                     var parsed = jQuery.parseJSON(data);
 
+                    $('#output_queue').html('');
+                    
                     $('#output_queue').append('<div class="processed-image">'+
                       '<img src="'+parsed["thumbnail"]+'" >'+
                       '<a href="'+parsed["thumbnail"]+'" >'+parsed["thumbnail"]+'</a></div>');
@@ -242,6 +245,7 @@ $ironmq->postMessage("input_queue",
               $('#process-image').delay(1000).animate({left: '40%', opacity: '1'}, 1000, function(){
                   $(this).animate({left: '95%', opacity: '0'}, 1000, function(){
                       $(this).css('left', '-10%');
+                      $('#gears').delay(400).removeClass('moving');
                   });
               });
               $('#send-images img').delay(1000).animate({'opacity': '.75'}, 1000, function(){
