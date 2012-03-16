@@ -101,17 +101,18 @@ $ironmq->postMessage("input_queue",
   <div class="clearfloat"></div>
 
   <section id="result-flow">
-    <h2>And see result images:</h2>
+    <h2>And see processed images</h2>
     <table id="output">
       <thead>
         <tr>
-          <td>Image from queue</td>
-          <td>Thumbnail</td>
-          <td>Rotated</td>
-          <td>Grayscale</td>
+          <th>Image from queue</th>
+          <th>Thumbnail</th>
+          <th>Rotated</th>
+          <th>Grayscale</th>
         </tr>
       </thead>
       <tbody>
+
       </tbody>
     </table>
   </section>
@@ -182,54 +183,57 @@ $ironmq->postMessage("input_queue",
 
         setInterval(function () {
             $.get('/mq/getMessage.php?queue_name=input_queue', null, function (data) {
-                if (data) {
-                    var task_id = queue_worker(data);
-                    var image = '<img width="200" src="' + data + '"/><br/>';
-                    
-                    var html = '<tr><td>' + image + '</td><td><span id="' +
-                        task_id + '_thumb"><img width="200" src="images/ajax-loader-circle.gif"/><br/></span></td><td><span id="' +
-                        task_id + '_rotated"><img width="200" src="images/ajax-loader-circle.gif"/><br/></span></td><td><span id="' +
-                        task_id + '_grayscale"><img width="200" src="images/ajax-loader-circle.gif"/><br/></span></td></tr>';
-                    $('#output tbody').prepend(html);
+              if (data) {
+                var task_id = queue_worker(data);
+                var image = '<img width="200" src="' + data + '"/><br/>';
+                
+                var html = '<tr><td>' + image + '</td><td><span id="' +
+                    task_id + '_thumb"><img src="images/ajax-loader-circle.gif"/></span></td><td><span id="' +
+                    task_id + '_rotated"><img src="images/ajax-loader-circle.gif"/></span></td><td><span id="' +
+                    task_id + '_grayscale"><img src="images/ajax-loader-circle.gif"/></span></td></tr>';
+                $('#output tbody').prepend(html);
+                if( !('#output').is(":visible") ){
+                  $('#output').slideDown(500);
                 }
+              }
             });
             $.get('/mq/getMessage.php?queue_name=output_queue', null, function (data) {
-                if (data) {
-                    $('#gears').addClass('moving');
-                    $('#step-3 .spinner').fadeOut(400);
-                    $('#step-3').animate({'background-position-y': '40%'}, 500);
-                    $('#processed-image').animate({left: '40%', opacity: '1'}, 1000, function(){
-                      $(this).animate({left: '-10%', opacity: '0'}, 1000, function(){
-                        $(this).css('left', '100%');
-                        $('#gears').delay(800).removeClass('moving');
-                      });
-                    });
-                    $('#receive-images img').animate({'opacity': '.75'}, 1000, function(){
-                        $('#receive-images img').animate({'opacity': '.1'}, 1000);
-                    });
+              if (data) {
+                $('#gears').addClass('moving');
+                $('#step-3 .spinner').fadeOut(400);
+                $('#step-3').animate({'background-position-y': '40%'}, 500);
+                $('#processed-image').animate({left: '40%', opacity: '1'}, 1000, function(){
+                  $(this).animate({left: '-10%', opacity: '0'}, 1000, function(){
+                    $(this).css('left', '100%');
+                    $('#gears').delay(800).removeClass('moving');
+                  });
+                });
+                $('#receive-images img').animate({'opacity': '.75'}, 1000, function(){
+                    $('#receive-images img').animate({'opacity': '.1'}, 1000);
+                });
 
-                    var parsed = jQuery.parseJSON(data);
+                var parsed = jQuery.parseJSON(data);
 
-                    $('#output_queue').html('');
-                    
-                    $('#output_queue').append('<div class="processed-image">'+
-                      '<img src="'+parsed["thumbnail"]+'" >'+
-                      '<a href="'+parsed["thumbnail"]+'" >'+parsed["thumbnail"]+'</a></div>');
-                    
-                    $('#output_queue').append('<div class="processed-image">'+
-                      '<img src="'+parsed["rotated"]+'" >'+
-                      '<a href="'+parsed["rotated"]+'" >'+parsed["rotated"]+'</a></div>');
-                    
-                    $('#output_queue').append('<div class="processed-image">'+
-                      '<img src="'+parsed["grayscale"]+'" >'+
-                      '<a href="'+parsed["grayscale"]+'" >'+parsed["grayscale"]+'</a></div>');
-                    
-                    $('#output_queue').fadeIn(1000);
+                $('#output_queue').html('');
+                
+                $('#output_queue').append('<div class="processed-image">'+
+                  '<img src="'+parsed["thumbnail"]+'" >'+
+                  '<a href="'+parsed["thumbnail"]+'" >'+parsed["thumbnail"]+'</a></div>');
+                
+                $('#output_queue').append('<div class="processed-image">'+
+                  '<img src="'+parsed["rotated"]+'" >'+
+                  '<a href="'+parsed["rotated"]+'" >'+parsed["rotated"]+'</a></div>');
+                
+                $('#output_queue').append('<div class="processed-image">'+
+                  '<img src="'+parsed["grayscale"]+'" >'+
+                  '<a href="'+parsed["grayscale"]+'" >'+parsed["grayscale"]+'</a></div>');
+                
+                $('#output_queue').fadeIn(1000);
 
-                    $("#" + parsed["task_id"] + "_thumb").html('<img src="' + parsed["thumbnail"] + '"/>');
-                    $("#" + parsed["task_id"] + "_rotated").html('<img src="' + parsed["rotated"] + '"/>');
-                    $("#" + parsed["task_id"] + "_grayscale").html('<img src="' + parsed["grayscale"] + '"/>');
-                }
+                $("#" + parsed["task_id"] + "_thumb").html('<img src="' + parsed["thumbnail"] + '"/>');
+                $("#" + parsed["task_id"] + "_rotated").html('<img src="' + parsed["rotated"] + '"/>');
+                $("#" + parsed["task_id"] + "_grayscale").html('<img src="' + parsed["grayscale"] + '"/>');
+              }
             })
 
         }, 5000); // every 5 seconds

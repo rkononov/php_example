@@ -110,7 +110,7 @@ small {
   margin: 10px 0 0;
   display: inline-block;
   border-bottom: 1px dashed;
-  padding: 3px 0;
+  padding: 3px 5px;
   color: #608A9F;
 }
 
@@ -151,10 +151,8 @@ body > header {
 }
 
 body > footer {
-  position: absolute;
-  bottom: 150px;
-  width: 100%;
   text-align: center;
+  margin: 40px 0 0;
 }
 
 body > footer a {
@@ -343,6 +341,40 @@ code {
   display: none;
 }
 
+#output {
+  min-width: 590px;
+  display: none;
+}
+
+#output img {
+  max-width: 256px;
+}
+
+#output thead th {
+  text-align: center;
+  padding: 0 0 10px;
+}
+
+#output tbody td {
+  vertical-align: top;
+}
+
+#output span {
+  overflow: hidden;
+  width: 150px;
+  display: block;
+  height: 100px;
+  position: relative;
+  float: left;
+}
+
+#output span img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -25px 0 0 -25px;
+}
+
 #result {
   background: rgba(0, 179, 0, .8);
   padding: 10px;
@@ -359,7 +391,7 @@ code {
 
 #result-flow {
   margin: 80px auto 0;
-  width: 500px;
+  width: 600px;
 }
 
 #result-flow h2 {
@@ -494,4 +526,8 @@ code {
 
 #sample-toggler {
   cursor: pointer;
+}
+
+#sample-toggler:hover {
+  background: rgba(96, 138, 159, .2);
 }
