@@ -122,10 +122,10 @@ h1, h2, h3, h4 {
 /*-------------------------------
             style
 -------------------------------*/
-
+/*
 html, body {
   height: 100%;
-}
+}*/
 
 body {
   position: relative;
@@ -239,23 +239,6 @@ body > footer a img {
   display: none;
 }
 
-.processed-image {
-  overflow: hidden;
-  margin: 0 0 5px;
-}
-
-.processed-image a {
-  float: left;
-  color: #444;
-  margin: 0 0 0 10px;
-}
-
-.processed-image img {
-  float: left;
-  height: 20px;
-  max-width: 60px;
-}
-
 #upload-form {
   text-align: center;
   margin: 20px 0 0;
@@ -344,13 +327,19 @@ code {
 
 #output_queue {
   position: absolute;
-  bottom: 50px;
+  bottom: 30px;
   left: 50px;
   display: none;
 }
 
-#result-flow {
-  display: none;
+#output_queue img {
+  float: left;
+  width: 100px;
+  margin-right: 5px;
+}
+
+#result-flow.hidden {
+  /*display: none;*/
 }
 
 #output {
@@ -367,7 +356,8 @@ code {
 }
 
 #output tbody td {
-  vertical-align: top;
+  vertical-align: middle;
+  text-align: center;
 }
 
 #output span {
@@ -379,7 +369,7 @@ code {
   float: left;
 }
 
-#output span img {
+#output span .spinner {
   position: absolute;
   left: 50%;
   top: 50%;

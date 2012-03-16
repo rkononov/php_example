@@ -25,7 +25,9 @@
 <div class="gears-bg"></div>
 
   <header>
-    This page shows how you can easly processing images with IronMQ and IronWorker in background!
+    <span>
+      This page shows how you can easly processing images with IronMQ and IronWorker in background!
+    </span>
   </header>
 
   <section id="steps">
@@ -100,7 +102,7 @@ $ironmq->postMessage("input_queue",
 
   <div class="clearfloat"></div>
 
-  <section id="result-flow">
+  <section id="result-flow" class="hidden">
     <h2>Processed images</h2>
     <table id="output">
       <thead>
@@ -178,56 +180,50 @@ $ironmq->postMessage("input_queue",
         $('#samples img').click(function(){
           $(this).parent().children('img').removeClass('selected');
           $(this).addClass('selected');
-          $('#pic_url').val($(this).attr('src'));
+          $('#pic_url').val('http://'+window.location.hostname+'/'+$(this).attr('src'));
         });
 
         setInterval(function () {
             $.get('/mq/getMessage.php?queue_name=input_queue', null, function (data) {
               if (data) {
                 var task_id = queue_worker(data);
-                var image = '<img width="200" src="' + data + '"/><br/>';
+                var image = '<img src="' + data + '"/><br/>';
                 
                 var html = '<tr><td>' + image + '</td><td><span id="' +
-                    task_id + '_thumb"><img src="images/ajax-loader-circle.gif"/></span></td><td><span id="' +
-                    task_id + '_rotated"><img src="images/ajax-loader-circle.gif"/></span></td><td><span id="' +
-                    task_id + '_grayscale"><img src="images/ajax-loader-circle.gif"/></span></td></tr>';
+                    task_id + '_thumb"><img src="images/ajax-loader-circle.gif" class="spinner" /></span></td><td><span id="' +
+                    task_id + '_rotated"><img src="images/ajax-loader-circle.gif" class="spinner" /></span></td><td><span id="' +
+                    task_id + '_grayscale"><img src="images/ajax-loader-circle.gif" class="spinner" /></span></td></tr>';
                 $('#output tbody').prepend(html);
+                console.log(html);
                 
-                if( !('#result-flow').is(":visible") ){
-                  $('#result-flow').slideDown(500);
+                if( ('#result-flow').hasClass('hidden') ){
+                  $('#result-flow').removeClass('hidden').slideDown(500);
                 }
               }
             });
+
             $.get('/mq/getMessage.php?queue_name=output_queue', null, function (data) {
               if (data) {
                 $('#gears').addClass('moving');
                 $('#step-3 .spinner').fadeOut(400);
                 $('#step-3').animate({'background-position-y': '40%'}, 500);
-                $('#processed-image').animate({left: '40%', opacity: '1'}, 1000, function(){
-                  $(this).animate({left: '-10%', opacity: '0'}, 1000, function(){
+                $('#processed-image').animate({left: '40%', opacity: '1'}, 1500, function(){
+                  $(this).animate({left: '-10%', opacity: '0'}, 1500, function(){
                     $(this).css('left', '100%');
                     $('#gears').delay(800).removeClass('moving');
                   });
                 });
-                $('#receive-images img').animate({'opacity': '.75'}, 1000, function(){
-                    $('#receive-images img').animate({'opacity': '.1'}, 1000);
+                $('#receive-images img').animate({'opacity': '.75'}, 1500, function(){
+                    $('#receive-images img').animate({'opacity': '.1'}, 1500);
                 });
 
                 var parsed = jQuery.parseJSON(data);
 
                 $('#output_queue').html('');
                 
-                $('#output_queue').append('<div class="processed-image">'+
-                  '<img src="'+parsed["thumbnail"]+'" >'+
-                  '<a href="'+parsed["thumbnail"]+'" >'+parsed["thumbnail"]+'</a></div>');
-                
-                $('#output_queue').append('<div class="processed-image">'+
+                $('#output_queue').append('<img src="'+parsed["thumbnail"]+'" >'+
                   '<img src="'+parsed["rotated"]+'" >'+
-                  '<a href="'+parsed["rotated"]+'" >'+parsed["rotated"]+'</a></div>');
-                
-                $('#output_queue').append('<div class="processed-image">'+
-                  '<img src="'+parsed["grayscale"]+'" >'+
-                  '<a href="'+parsed["grayscale"]+'" >'+parsed["grayscale"]+'</a></div>');
+                  '<img src="'+parsed["grayscale"]+'" >');
                 
                 $('#output_queue').fadeIn(1000);
 
@@ -242,7 +238,7 @@ $ironmq->postMessage("input_queue",
         $("#sendMessageForm").submit(function (event) {
           event.preventDefault();
 
-
+          $('#samples').slideUp(300);
           /* get some values from elements on the page: */
           var $form = $(this),
               term = $form.find('input[name="url"]').val(),
@@ -265,18 +261,21 @@ $ironmq->postMessage("input_queue",
               });
 
               $('#gears').delay(800).addClass('moving');
-              $('#process-image').delay(1000).animate({left: '40%', opacity: '1'}, 1000, function(){
-                  $(this).animate({left: '95%', opacity: '0'}, 1000, function(){
+              $('#process-image').delay(1200).animate({left: '40%', opacity: '1'}, 1500, function(){
+                  $(this).animate({left: '95%', opacity: '0'}, 1500, function(){
                       $(this).css('left', '-10%');
                       $('#gears').delay(400).removeClass('moving');
                   });
               });
-              $('#send-images img').delay(1000).animate({'opacity': '.75'}, 1000, function(){
-                  $('#send-images img').animate({'opacity': '.1'}, 1000);
+              $('#send-images img').delay(1500).animate({'opacity': '.75'}, 1000, function(){
+                  $('#send-images img').animate({'opacity': '.1'}, 1500);
               });
 
-              $('#step-3 .spinner').delay(1500).fadeIn(500);
+              $('#step-3 .spinner').delay(4200).fadeIn(500);
               $('#output_queue').delay(1500).fadeOut(500);
+
+              $('body > header span').fadeOut(300).html('2. After you images uploaded IronWorker grab it from the queue...').fadeIn(300);
+
             }
           );
         });
