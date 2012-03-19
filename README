@@ -14,6 +14,7 @@ a) AppFog
 a.1)Configure Appfog app as described here : http://dev.appfog.com/features/article/getting_started_custom_application
 a.2)Copy all files from this repo to appfog application folder
 a.3)Set proper credentials in config.ini 
+a.4)Redeploy appfog app
 
 b)CloudControl
 b.1)Install cctrlapp: sudo easy_install cctrl
