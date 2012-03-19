@@ -6,3 +6,19 @@ Getting Started
 3 Add any picture to IronMQ queue or in input box
 4 Wait until picture processed
 5 Profit!
+
+How to install app on clouds:
+-----------------------------
+
+a) AppFog
+a.1)Configure Appfog app as described here : http://dev.appfog.com/features/article/getting_started_custom_application
+a.2)Copy all files from this repo to appfog application folder
+a.3)Set proper credentials in config.ini 
+
+b)CloudControl
+b.1)Install cctrlapp: sudo easy_install cctrl
+b.2)Create new dir and copy all files from this repo to new dir
+b.2)Create app: cctrlapp APP_NAME create php
+b.3)Push app:cctrlapp APP_NAME/DEP_NAME push
+b.4)Deploy app:cctrlapp APP_NAME/DEP_NAME deploy
+.......
