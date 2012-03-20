@@ -293,6 +293,7 @@ code {
   bottom: 0;
   left: 0;
   opacity: .3;
+  z-index:0;
 }
 
 #posted-image {
@@ -420,6 +421,8 @@ code {
 #result-flow {
   margin: 60px auto 0;
   width: 600px;
+  position: relative;
+  z-index: 1;
 }
 
 #result-flow h2 {

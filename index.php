@@ -199,10 +199,11 @@ $ironmq->postMessage("input_queue",
                     task_id + '_rotated"><img src="images/ajax-loader-circle.gif" class="spinner" /></span></td><td><span id="' +
                     task_id + '_grayscale"><img src="images/ajax-loader-circle.gif" class="spinner" /></span></td></tr>';
                 $('#output tbody').prepend(html);
-                console.log(html);
                 
                 if( $('#result-flow').hasClass('hidden') ){
-                  $('#result-flow').removeClass('hidden').slideDown(500);
+                  $('#result-flow').slideDown(500, function(){
+                    $(this).removeClass('hidden');
+                  });
                 }
               }
             });
@@ -235,6 +236,12 @@ $ironmq->postMessage("input_queue",
                 $("#" + parsed["task_id"] + "_thumb").html('<img src="' + parsed["thumbnail"] + '"/>');
                 $("#" + parsed["task_id"] + "_rotated").html('<img src="' + parsed["rotated"] + '"/>');
                 $("#" + parsed["task_id"] + "_grayscale").html('<img src="' + parsed["grayscale"] + '"/>');
+
+                if( $('#result-flow').hasClass('hidden') ){
+                  $('#result-flow').slideDown(500, function(){
+                    $(this).removeClass('hidden');
+                  });
+                }
               }
             })
 
