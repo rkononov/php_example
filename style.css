@@ -27,6 +27,10 @@ time, mark, audio, video {
   background:transparent;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   line-height:1;
 }
@@ -163,6 +167,7 @@ body > footer a {
   display: inline-block;
   box-shadow: 0 1px 5px rgba(0,0,0,.5);
   border-radius: 5px;
+  height: 50px;
 }
 
 body > footer a img {
@@ -254,13 +259,30 @@ body > footer a img {
 }
 
 code {
-  background: rgba(255, 255, 255, .3);
-  padding: 10px 0 10px 5px;
+  background: -webkit-linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .67) 49%, rgba(0, 0, 0, .7) 49% ,rgba(0, 0, 0, .7));
   font-size: 11px;
   display: block;
   line-height: 1.5em;
-  box-shadow: 0 1px 0 rgba(245,255,255,.6), 0 1px 0 rgba(0,20,20,.2) inset;
+  box-shadow: 0 1px 0 rgba(245,255,255,.6), 0 0px 20px rgba(0,20,20,.5) inset, 0 1px 0 rgba(0,20,20,.3) inset;
   border-radius: 5px;
+}
+
+.sh_vim-dark .sh_sourceCode .sh_keyword, .sh_vim-dark .sh_sourceCode .sh_date, .sh_vim-dark .sh_sourceCode .sh_time, .sh_vim-dark .sh_sourceCode .sh_file, .sh_vim-dark .sh_sourceCode .sh_variable, .sh_vim-dark .sh_sourceCode .sh_difflines, .sh_vim-dark .sh_sourceCode .sh_selector, .sh_vim-dark .sh_sourceCode .sh_property, .sh_vim .sh_sourceCode .sh_keyword, .sh_vim .sh_sourceCode .sh_date, .sh_vim .sh_sourceCode .sh_time, .sh_vim .sh_sourceCode .sh_file, .sh_vim .sh_sourceCode .sh_variable, .sh_vim .sh_sourceCode .sh_difflines, .sh_vim .sh_sourceCode .sh_selector, .sh_vim .sh_sourceCode .sh_property {
+  color: #95C261 !important;
+}
+
+.sh_golden .sh_sourceCode .sh_string, .sh_golden .sh_sourceCode .sh_regexp, .sh_golden .sh_sourceCode .sh_specialchar, .sh_golden .sh_sourceCode .sh_url, .sh_golden .sh_sourceCode .sh_ip, .sh_golden .sh_sourceCode .sh_name, .sh_golden .sh_sourceCode .sh_oldfile, .sh_golden .sh_sourceCode .sh_newfile, .sh_golden .sh_sourceCode .sh_value, .sh_ide-devcpp .sh_sourceCode .sh_string, .sh_ide-devcpp .sh_sourceCode .sh_regexp, .sh_ide-devcpp .sh_sourceCode .sh_specialchar, .sh_ide-devcpp .sh_sourceCode .sh_url, .sh_ide-devcpp .sh_sourceCode .sh_ip, .sh_ide-devcpp .sh_sourceCode .sh_name, .sh_ide-devcpp .sh_sourceCode .sh_oldfile, .sh_ide-devcpp .sh_sourceCode .sh_newfile, .sh_ide-devcpp .sh_sourceCode .sh_value, .sh_ide-kdev .sh_sourceCode .sh_string, .sh_ide-kdev .sh_sourceCode .sh_regexp, .sh_ide-kdev .sh_sourceCode .sh_specialchar, .sh_ide-kdev .sh_sourceCode .sh_url, .sh_ide-kdev .sh_sourceCode .sh_ip, .sh_ide-kdev .sh_sourceCode .sh_name, .sh_ide-kdev .sh_sourceCode .sh_oldfile, .sh_ide-kdev .sh_sourceCode .sh_newfile, .sh_ide-kdev .sh_sourceCode .sh_value, .sh_kwrite .sh_sourceCode .sh_string, .sh_kwrite .sh_sourceCode .sh_regexp, .sh_kwrite .sh_sourceCode .sh_url, .sh_kwrite .sh_sourceCode .sh_ip, .sh_kwrite .sh_sourceCode .sh_name, .sh_kwrite .sh_sourceCode .sh_newfile, .sh_kwrite .sh_sourceCode .sh_value, .sh_pablo .sh_sourceCode .sh_symbol, .sh_pablo .sh_sourceCode .sh_cbracket, .sh_the .sh_sourceCode .sh_number, .sh_the .sh_sourceCode .sh_preproc, .sh_typical .sh_sourceCode .sh_string, .sh_typical .sh_sourceCode .sh_regexp, .sh_typical .sh_sourceCode .sh_symbol, .sh_typical .sh_sourceCode .sh_cbracket, .sh_typical .sh_sourceCode .sh_url, .sh_typical .sh_sourceCode .sh_ip, .sh_typical .sh_sourceCode .sh_name, .sh_typical .sh_sourceCode .sh_newfile, .sh_typical .sh_sourceCode .sh_value, .sh_vim-dark .sh_sourceCode .sh_string, .sh_vim-dark .sh_sourceCode .sh_regexp, .sh_vim-dark .sh_sourceCode .sh_number, .sh_vim-dark .sh_sourceCode .sh_url, .sh_vim-dark .sh_sourceCode .sh_ip, .sh_vim-dark .sh_sourceCode .sh_name, .sh_vim-dark .sh_sourceCode .sh_newfile, .sh_vim-dark .sh_sourceCode .sh_value, .sh_vim .sh_sourceCode .sh_string, .sh_vim .sh_sourceCode .sh_regexp, .sh_vim .sh_sourceCode .sh_number, .sh_vim .sh_sourceCode .sh_url, .sh_vim .sh_sourceCode .sh_ip, .sh_vim .sh_sourceCode .sh_name, .sh_vim .sh_sourceCode .sh_newfile, .sh_vim .sh_sourceCode .sh_value, .sh_whatis .sh_sourceCode .sh_comment, .sh_zellner .sh_sourceCode .sh_comment {
+  color: #4BDAE7 !important;
+}
+
+.snippet-wrap pre.sh_sourceCode {
+  padding: .5em 1em .8em !important;
+}
+
+.sh_url {
+  margin: 0;
+  padding: 0;
+  color: red !important;
 }
 
 .gears-bg {
@@ -270,11 +292,16 @@ code {
   position: absolute;
   bottom: 0;
   left: 0;
+  opacity: .3;
 }
 
 #posted-image {
   text-align: center;
   display: none;
+}
+
+#posted-image img {
+  max-width: 200px;
 }
 
 #send-images {
@@ -339,7 +366,7 @@ code {
 }
 
 #result-flow.hidden {
-  /*display: none;*/
+  display: none;
 }
 
 #output {

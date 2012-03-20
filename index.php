@@ -4,6 +4,7 @@
     <link rel="icon" href="http://www.iron.io/favicon.ico">
     <link rel="stylesheet" href="style.css">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/jquery.snippet.min.css">
 
     <style type="text/css" media="screen">
       @font-face {
@@ -19,6 +20,7 @@
             src="https://www.google.com/jsapi?key=ABQIAAAAhes0f80sBcwL-h5xCNkkgxQBmiBpQeSpIciQPfZ5Ss-a60KXIRQOVvqzsNpqzhmG9tjky_5rOuaeow"></script>
     <script type="text/javascript">google.load('jquery', '1');
     google.load('jqueryui', '1'); </script>
+    <script src="javascripts/jquery.snippet.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 
@@ -38,7 +40,7 @@
         <pre>
 $ironmq = new IronMQ('config.ini');
 $ironmq->postMessage("input_queue", 
-          array("body" => $url_to_picture));</pre>
+            array("body" => $url_to_picture));</pre>
       </code>
 
       <div id="posted-image">
@@ -54,7 +56,7 @@ $ironmq->postMessage("input_queue",
             <input id = "pic_url" type="text" name="url" placeholder="Search..."/>
             <input type="submit" value="Push to Queue"/>
         </form>
-        <small id="sample-toggler">Or even simply choose one from our set</small>
+        <small id="sample-toggler">Or even simply choose one from our robots set</small>
         <div id="samples">
           <img src="images/samples/irondog.png" alt="">
           <img src="images/samples/transformer.png" alt="">
@@ -173,6 +175,8 @@ $ironmq->postMessage("input_queue",
         return task_id;
     }
     $(document).ready(function () {
+
+        $("#code-example pre").snippet("php",{style:"vim-dark",transparent:true,showNum:false});
 
         $('#sample-toggler').click(function(){
           $('#samples').slideToggle(300);
