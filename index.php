@@ -27,6 +27,7 @@
 <div class="gears-bg"></div>
 
   <header>
+    <a id="githublink" href="https://github.com/rkononov/php_example" target="_blank" title="Check App Sources on Github">App Sources on Github</a>
     <span>
       This page shows how you can easly processing images with IronMQ and IronWorker in background!
     </span>
@@ -84,8 +85,14 @@ $ironmq->postMessage("input_queue",
         </div>
 
         <div id="gears">
+          <div class="gear-small shadow">
+            <object data="images/gear-small-shadow.svg" type="image/svg+xml" ></object>
+          </div>
           <div class="gear-small">
             <object data="images/gear-small.svg" type="image/svg+xml" ></object>
+          </div>
+          <div class="gear-big shadow">
+            <object data="images/gear-big-shadow.svg" type="image/svg+xml" ></object>
           </div>
           <div class="gear-big">
             <object data="images/gear-big.svg" type="image/svg+xml" ></object>
@@ -125,46 +132,6 @@ $ironmq->postMessage("input_queue",
   <footer>
     <a href="http://iron.io" title="Messaging and Background Processing for Cloud Apps"><img src="http://www.iron.io/assets/resources/ironio-badge-red.png" alt="Iron.io Badge" /></a>      
   </footer>
-
-<!-- <table class="sample">
-    <tr>
-        <td VALIGN="top">
-            <h3>Add picture via posting url to IronMQ</h3>
-            <br/>
-            $ironmq = new IronMQ('config.ini');<br/>
-            $ironmq->postMessage("input_queue", array("body" => $url_to_picture));<br/>
-
-            <h3>Or add url to pic in form below</h3>
-
-            <form action="/mq/postMessage.php" id="sendMessageForm">
-                <input id="pic_url" type="text" name="url" placeholder="Search..."/>
-                <input type="submit" value="Add picture"/>
-            </form>
-            <div id="result"></div>
-
-        </td>
-        <td VALIGN="top">
-            <table id="output">
-                <tbody>
-                <tr>
-                    <td>
-                        Image from queue
-                    </td>
-                    <td>
-                        Thumbnail
-                    </td>
-                    <td>
-                        Rotated
-                    </td>
-                    <td>
-                        Grayscale
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-</table>
- -->
 
 <script>
     function queue_worker(data,queue_name) {

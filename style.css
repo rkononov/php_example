@@ -197,7 +197,6 @@ body > footer a img {
 .transform-step h2 {
   color: white;
   text-align: center;
-  background: rgba(33, 158, 186, .75);
   padding: 20px 0 15px;
   margin: -10px -10px 20px -10px;
   border-radius: 5px 5px 0 0;
@@ -208,7 +207,11 @@ body > footer a img {
   font-weight: normal;
   font-style: italic;
   height: 20px;
-  background-image: url(images/body-lines.png);
+  background-color: #219EBA;
+  background: -webkit-linear-gradient(hsla(191, 70%, 43%, .75), hsla(191, 60%, 33%, .75));
+  background: -moz-linear-gradient(hsla(191, 70%, 43%, .75), hsla(191, 60%, 33%, .75));
+  background: -ms-linear-gradient(hsla(191, 70%, 43%, .75), hsla(191, 60%, 33%, .75));
+  background: linear-gradient(hsla(191, 70%, 43%, .75), hsla(191, 60%, 33%, .75));
 }
 
 .transform-step:last-child {
@@ -216,13 +219,18 @@ body > footer a img {
 }
 
 .transform-step:last-child h2 {
-  background: rgba(33, 107, 186, .75);
+  background-color: #3384DB;
+  background: -webkit-linear-gradient(hsla(211, 70%, 53%, .75), hsla(211, 70%, 33%, .75));
+  background: -moz-linear-gradient(hsla(211, 70%, 53%, .75), hsla(211, 70%, 33%, .75));
+  background: -ms-linear-gradient(hsla(211, 70%, 53%, .75), hsla(211, 70%, 33%, .75));
+  background: linear-gradient(hsla(211, 70%, 53%, .75), hsla(211, 70%, 33%, .75));
 }
 
 #step-1 {
   /*background-image: url(images/step-1-bg.png);*/
   background-repeat: no-repeat;
   background-position: 50% 55%;
+  background-color: #B9CFD5;
 }
 
 #step-2 {
@@ -237,7 +245,8 @@ body > footer a img {
 #step-3 {
   background-image: url(images/step-3-bg.png);
   background-repeat: no-repeat;
-  background-position: 54% 50%;
+  background-position: 54% 55%;
+  background-color: #BDD0DB;
 }
 
 #step-3 .spinner {
@@ -263,7 +272,11 @@ body > footer a img {
 }
 
 code {
+  background: #141414;
   background: -webkit-linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .67) 49%, rgba(0, 0, 0, .7) 49% ,rgba(0, 0, 0, .7));
+  background: -moz-linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .67) 49%, rgba(0, 0, 0, .7) 49% ,rgba(0, 0, 0, .7));
+  background: -ms-linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .67) 49%, rgba(0, 0, 0, .7) 49% ,rgba(0, 0, 0, .7));
+  background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .67) 49%, rgba(0, 0, 0, .7) 49% ,rgba(0, 0, 0, .7));
   font-size: 11px;
   display: block;
   line-height: 1.5em;
@@ -457,7 +470,8 @@ code {
 }
 
 .gear-small.shadow {
-  top:11px;
+  margin-top: 2px;
+  opacity: .75;
 }
 
 .gear-big {
@@ -469,7 +483,8 @@ code {
 }
 
 .gear-big.shadow {
-  top:43px;
+  margin-top: 2px;
+  opacity: .75;
 }
 
 #gears {
@@ -565,4 +580,22 @@ code {
 
 #sample-toggler:hover {
   background: rgba(96, 138, 159, .2);
+}
+
+#githublink {
+  position: absolute;
+  left: 40px;
+  top: 11px;
+  background: url(images/github-icon.png) no-repeat;
+  width: 40px;
+  height: 40px;
+  text-indent: -9999px;
+}
+
+#githublink:hover {
+  background-position: 0 -50px;
+}
+
+#githublink:active {
+  margin-top: 2px;
 }
