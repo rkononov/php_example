@@ -55,7 +55,6 @@ $ironmq->postMessage("input_queue",
         <h3>Or add url to pic in form below</h3>
         <form action="/mq/postMessage.php" id="sendMessageForm">
             <input id = "pic_url" type="text" name="url" placeholder="Search..."/>
-            <input type="hidden" name="queue_name" value="<?php echo $input_queue_id; ?>" />
             <input type="submit" value="Push to Queue"/>
         </form>
         <small id="sample-toggler">Or even simply choose one from our robots set</small>
@@ -192,7 +191,7 @@ $ironmq->postMessage("input_queue",
         setInterval(function () {
             $.get('/mq/getMessage.php?queue_name=<?php echo $input_queue_id;?>', null, function (data) {
               if (data) {
-                var task_id = queue_worker(data,<?php echo $output_queue_id;?>);
+                var task_id = queue_worker(data,'<?php echo $output_queue_id;?>');
                 var image = '<img src="' + data + '"/><br/>';
                 
                 var html = '<tr><td>' + image + '</td><td><span id="' +
@@ -202,7 +201,7 @@ $ironmq->postMessage("input_queue",
                 $('#output tbody').prepend(html);
                 console.log(html);
                 
-                if( ('#result-flow').hasClass('hidden') ){
+                if( $('#result-flow').hasClass('hidden') ){
                   $('#result-flow').removeClass('hidden').slideDown(500);
                 }
               }
@@ -253,7 +252,7 @@ $ironmq->postMessage("input_queue",
 
           /* Send the data using post and put the results in a div */
           $('#upload-form .spinner').fadeIn(400);
-          $.post(url, { url:term },
+          $.post(url, { url:term,queue_name:'<?php echo $input_queue_id;?>'},
             function (data) {
                 
               $('#upload-form .spinner').fadeOut(400);
