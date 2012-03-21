@@ -23,8 +23,9 @@
 -   Clone this repo 'git clone https://github.com/rkononov/php_example.git'
 -   Copy all files from this repo folder to cloudcontrol_app_folder - 'cp php_example/* cloudcontrol_app_folder/ -r'
 -   Set proper credentials in config.ini (you could get token and project_id from hud.iron.io)
--   Create app -'cd cloudcontrol_app_folder;cctrlapp APP_NAME create php'
--   Commit app - 'cd cloudcontrol_app_folder;git add -A;git commit -m "first deploy"
--   Push app - 'cd cloudcontrol_app_folder;cctrlapp APP_NAME/DEP_NAME push'
--   Deploy app - 'cd cloudcontrol_app_folder;cctrlapp APP_NAME/DEP_NAME deploy'
+-   Go into cloudcontrol_app_folder - 'cd cloudcontrol_app_folder'
+-   Create app -'cctrlapp APP_NAME create php'
+-   Commit app - 'git add -A;git commit -m "first deploy"
+-   Push app - 'cctrlapp APP_NAME/DEP_NAME push'
+-   Deploy app - 'cctrlapp APP_NAME/DEP_NAME deploy'
 -   Open your app url in browser (you should see smth like this http://iron2.cloudcontrolled.com/)
