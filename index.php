@@ -47,13 +47,15 @@ $ironmq->postMessage("input_queue",
         <img src="http://stuntsoftware.com/img/onthejob/icon_onthejob_128.png" alt="">
       </div>
 
-      
+      <?php $input_queue_id = "input_queue_" . rand(); ?>
+      <?php $output_queue_id = "output_queue_" . rand(); ?>
       <div id="upload-form">
         <img src="images/ajax-loader.gif" class="spinner">
         <img src="images/step-1-bg.png" alt="" style="margin: 0 auto 10px;clear: both;display: block;height: 99px;">
         <h3>Or add url to pic in form below</h3>
         <form action="/mq/postMessage.php" id="sendMessageForm">
             <input id = "pic_url" type="text" name="url" placeholder="Search..."/>
+            <input type="hidden" name="queue_name" value="<?php echo $input_queue_id; ?>" />
             <input type="submit" value="Push to Queue"/>
         </form>
         <small id="sample-toggler">Or even simply choose one from our robots set</small>
@@ -166,10 +168,10 @@ $ironmq->postMessage("input_queue",
  -->
 
 <script>
-    function queue_worker(data) {
+    function queue_worker(data,queue_name) {
         var task_id = ''
         $.ajaxSetup({async:false});
-        $.post('/iw/queueWorker.php', { url:data },function(data) {
+        $.post('/iw/queueWorker.php', { url:data, queue_name:queue_name },function(data) {
             task_id = data;
         });
         return task_id;
@@ -188,9 +190,9 @@ $ironmq->postMessage("input_queue",
         });
 
         setInterval(function () {
-            $.get('/mq/getMessage.php?queue_name=input_queue', null, function (data) {
+            $.get('/mq/getMessage.php?queue_name=<?php echo $input_queue_id;?>', null, function (data) {
               if (data) {
-                var task_id = queue_worker(data);
+                var task_id = queue_worker(data,<?php echo $output_queue_id;?>);
                 var image = '<img src="' + data + '"/><br/>';
                 
                 var html = '<tr><td>' + image + '</td><td><span id="' +
@@ -206,7 +208,7 @@ $ironmq->postMessage("input_queue",
               }
             });
 
-            $.get('/mq/getMessage.php?queue_name=output_queue', null, function (data) {
+            $.get('/mq/getMessage.php?queue_name=<?php echo $output_queue_id;?>', null, function (data) {
               if (data) {
                 $('#gears').addClass('moving');
                 $('#step-3 .spinner').fadeOut(400);

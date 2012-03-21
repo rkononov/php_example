@@ -58,5 +58,5 @@ $ironmq = new IronMQ(array(
     'token' => $payload->iron_mq->token,
     'project_id' => $payload->iron_mq->project_id
 ));
-$ironmq->postMessage("output_queue", json_encode($links));
+$ironmq->postMessage($payload->queue_name, json_encode($links));
 ?>

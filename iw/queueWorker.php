@@ -3,6 +3,7 @@ ob_start();
 include(__DIR__.'/../lib/IronWorkerWrapper.php');
 $config = parse_ini_file(__DIR__.'/../config.ini', true);
 $url = $_REQUEST['url'];
+$queue_name = $_REQUEST['queue_name'];
 $name = "imageWorker.php";
 $tmpdir = $_SERVER['TMP_DIR'];
 if (empty($tmpdir)){
@@ -19,7 +20,8 @@ $payload = array(
         'project_id' => $config['iron_mq']['project_id'],
     ),
 
-    'image_url' => $url
+    'image_url' => $url,
+    'queue_name' => $queue_name
 );
 
 $task_id = $iw->postTask($name, $payload);
