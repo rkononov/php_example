@@ -61,7 +61,7 @@
     </span>
   </header>
 
-  <div id="flashes">
+  <div id="flashes" class="hidden">
     After you images uploaded IronWorker grab it from the queue...
   </div>
 
@@ -88,7 +88,7 @@ $ironmq->postMessage("input_queue",
         <h3>Or add url to pic in form below</h3>
         <form action="/mq/postMessage.php" id="sendMessageForm">
             <input id = "pic_url" type="text" name="url" placeholder="Search..."/>
-            <input type="submit" value="Push to Queue"/>
+            <input type="submit" value="Push to Queue" />
         </form>
         <small id="sample-toggler">Or even simply choose one from our robots set</small>
         <div id="samples">
@@ -267,6 +267,10 @@ $ironmq->postMessage("input_queue",
                 $(this).delay(1000).fadeOut(2000);
               });
 
+              if($('#flashes').hasClass('hidden')){
+                $('#flashes').removeClass('hidden').animate({'margin-top': 0}, 300);
+              }
+
               $('#code-example').slideUp(200);
               $('#posted-image').html('<img src="'+$('#pic_url').val()+'">');
               $('#posted-image').slideDown(200, function(){
@@ -276,23 +280,24 @@ $ironmq->postMessage("input_queue",
               $('#step-1').animate({'margin-left': '0%'}, 750, 'linear'); 
               $('#step-1').animate({'margin-right': '0%'}, 1000, 'linear', function(){
                 $('#step-3').animate({opacity: 1}, 500);
+                
+                $('#gears').delay(800).addClass('moving');
+                $('#process-image').delay(1200).animate({left: '40%', opacity: '1'}, 1500, function(){
+                    $(this).animate({left: '95%', opacity: '0'}, 1500, function(){
+                        $(this).css('left', '-10%');
+                        $('#gears').delay(400).removeClass('moving');
+                        $('#flashes').html('and worker has been started process images...');
+                    });
+                });
+                $('#send-images img').delay(1500).animate({'opacity': '.75'}, 1000, function(){
+                    $('#send-images img').animate({'opacity': '.1'}, 1500);
+                });
+
+                $('#step-3 .spinner').delay(4200).fadeIn(500);
+                $('#output_queue').delay(1500).fadeOut(500);
               });
 
 
-              $('#gears').delay(800).addClass('moving');
-              $('#process-image').delay(1200).animate({left: '40%', opacity: '1'}, 1500, function(){
-                  $(this).animate({left: '95%', opacity: '0'}, 1500, function(){
-                      $(this).css('left', '-10%');
-                      $('#gears').delay(400).removeClass('moving');
-                      $('#flashes').html('and worker has been started process images...');
-                  });
-              });
-              $('#send-images img').delay(1500).animate({'opacity': '.75'}, 1000, function(){
-                  $('#send-images img').animate({'opacity': '.1'}, 1500);
-              });
-
-              $('#step-3 .spinner').delay(4200).fadeIn(500);
-              $('#output_queue').delay(1500).fadeOut(500);
 
             }
           );

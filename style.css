@@ -160,6 +160,7 @@ body > header {
   background-position: 0 0, 0 2px, 0 100%;
   font-style: italic;
   font-weight: bold;
+  z-index: 11;
 }
 
 body > footer {
@@ -186,6 +187,7 @@ body > footer a img {
   top: 61px;
   width: 100%;
   font-family: Conv_gillsans, sans-serif;
+  margin-top: -50px;
 }
 
 #steps {
