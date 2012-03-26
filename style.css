@@ -150,7 +150,7 @@ body > header {
   color: #CFD6D8;
   text-shadow: 0 2px 2px black;
   font-size: 21px;
-  margin: 0 0 50px;
+  margin: 0;
   box-shadow: 0 4px 5px rgba(0,0,0,.5) inset, 0 2px 2px rgba(0,0,0,.5);
   border-bottom: 1px solid #222;
   position: relative;
@@ -178,9 +178,20 @@ body > footer a img {
   margin-right: -4px;
 }
 
+#flashes {
+  background: rgba(244, 216, 72, .75);
+  padding: 15px 0;
+  text-align: center;
+  position: absolute;
+  top: 61px;
+  width: 100%;
+  font-family: Conv_gillsans, sans-serif;
+}
+
 #steps {
   padding: 0 40px;
   min-width: 1000px;
+  margin-top: 80px;
 }
 
 .transform-step {

@@ -21,6 +21,34 @@
     <script type="text/javascript">google.load('jquery', '1');
     google.load('jqueryui', '1'); </script>
     <script src="javascripts/jquery.snippet.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+    <style type="text/css" media="screen">
+      #step-1 {
+        margin-right: -34%;
+        margin-left: 33%;
+        z-index: 10;
+      }
+
+      #step-2 {
+        /*opacity: 0;*/
+      }
+
+      #step-3 {
+        opacity: 0;
+        /*margin-left: -30%;*/
+      }
+    </style>
+
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function () {
+
+        // $('#step-1').animate({'margin-left': 0}, 1500); 
+        // $('#step-1').animate({'margin-right': 0}, 1000); 
+        // $('#step-2').animate({opacity: 1}, 300);
+        
+      });
+    </script>
 </head>
 <body>
 
@@ -32,6 +60,10 @@
       This page shows how you can easly processing images with IronMQ and IronWorker in background!
     </span>
   </header>
+
+  <div id="flashes">
+    After you images uploaded IronWorker grab it from the queue...
+  </div>
 
   <section id="steps">
     <div id="step-1" class="transform-step">
@@ -184,6 +216,7 @@ $ironmq->postMessage("input_queue",
                   $(this).animate({left: '-10%', opacity: '0'}, 1500, function(){
                     $(this).css('left', '100%');
                     $('#gears').delay(800).removeClass('moving');
+                    $('#flashes').html("Check processed images below. Here is the code we are executing on the image on <a href='https://github.com/rkononov/php_example' target='_blank' title='Check App Sources on Github'>Github</a>");
                   });
                 });
                 $('#receive-images img').animate({'opacity': '.75'}, 1500, function(){
@@ -239,11 +272,19 @@ $ironmq->postMessage("input_queue",
               $('#posted-image').slideDown(200, function(){
               });
 
+
+              $('#step-1').animate({'margin-left': '0%'}, 750, 'linear'); 
+              $('#step-1').animate({'margin-right': '0%'}, 1000, 'linear', function(){
+                $('#step-3').animate({opacity: 1}, 500);
+              });
+
+
               $('#gears').delay(800).addClass('moving');
               $('#process-image').delay(1200).animate({left: '40%', opacity: '1'}, 1500, function(){
                   $(this).animate({left: '95%', opacity: '0'}, 1500, function(){
                       $(this).css('left', '-10%');
                       $('#gears').delay(400).removeClass('moving');
+                      $('#flashes').html('and worker has been started process images...');
                   });
               });
               $('#send-images img').delay(1500).animate({'opacity': '.75'}, 1000, function(){
@@ -252,8 +293,6 @@ $ironmq->postMessage("input_queue",
 
               $('#step-3 .spinner').delay(4200).fadeIn(500);
               $('#output_queue').delay(1500).fadeOut(500);
-
-              $('body > header span').fadeOut(300).html('2. After you images uploaded IronWorker grab it from the queue...').fadeIn(300);
 
             }
           );
