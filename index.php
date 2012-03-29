@@ -87,8 +87,8 @@ $ironmq->postMessage("input_queue",
         <img src="images/step-1-bg.png" alt="" style="margin: 0 auto 10px;clear: both;display: block;height: 99px;">
         <h3>Or add url to pic in form below</h3>
         <form action="/mq/postMessage.php" id="sendMessageForm">
-            <input id = "pic_url" type="text" name="url" placeholder="Search..."/>
-            <input type="submit" value="Push to Queue" />
+            <input id = "pic_url" type="url" name="url" placeholder="Search..."/>
+            <input id="sent_img_btn" type="submit" value="Push to Queue" disabled="disabled" />
         </form>
         <small id="sample-toggler">Or even simply choose one from our robots set</small>
         <div id="samples">
@@ -174,6 +174,16 @@ $ironmq->postMessage("input_queue",
         });
         return task_id;
     }
+
+    function urlExists(testUrl) {
+     var http = jQuery.ajax({
+        type:"HEAD",
+        url: testUrl,
+        async: false
+      })
+      return http.status!=404&&http.status!=0;
+    }
+
     $(document).ready(function () {
 
         $("#code-example pre").snippet("php",{style:"vim-dark",transparent:true,showNum:false});
@@ -181,11 +191,33 @@ $ironmq->postMessage("input_queue",
         $('#sample-toggler').click(function(){
           $('#samples').slideToggle(300);
         });
+
         $('#samples img').click(function(){
+          $('#sent_img_btn').removeAttr('disabled');
           $(this).parent().children('img').removeClass('selected');
           $(this).addClass('selected');
           $('#pic_url').val('http://'+window.location.hostname+'/'+$(this).attr('src'));
         });
+
+        $('#pic_url').keyup(function(e) {
+          if($(e.target).val()=="") {
+            $('#sent_img_btn').attr('disabled', 'disabled');
+          } else {
+            $('#sent_img_btn').removeAttr('disabled');
+          }
+        }).click(function(e) {
+          if($(e.target).val()=="") {
+            $('#sent_img_btn').attr('disabled', 'disabled');
+          } else {
+            $('#sent_img_btn').removeAttr('disabled');
+          }
+        }).bind('paste', function(e) {
+          setTimeout(function() {
+            if($(e.target).val()!="") {
+              $('#sent_img_btn').removeAttr('disabled');
+            }
+          }, 100);
+        });;
 
         setInterval(function () {
             $.get('/mq/getMessage.php?queue_name=<?php echo $input_queue_id;?>', null, function (data) {
@@ -250,57 +282,67 @@ $ironmq->postMessage("input_queue",
         $("#sendMessageForm").submit(function (event) {
           event.preventDefault();
 
-          $('#samples').slideUp(300);
-          /* get some values from elements on the page: */
-          var $form = $(this),
-              term = $form.find('input[name="url"]').val(),
-              url = $form.attr('action');
-          $("#pic_url").empty();
+          if( !urlExists($('#pic_url').val()) ) {
+            $('#result').addClass('error').html('URL looks wrong. Please check it again').fadeIn(600, function(){
+              $(this).delay(1000).fadeOut(2000);
+            });;
+            return false;
 
-          /* Send the data using post and put the results in a div */
-          $('#upload-form .spinner').fadeIn(400);
-          $.post(url, { url:term,queue_name:'<?php echo $input_queue_id;?>'},
-            function (data) {
-                
-              $('#upload-form .spinner').fadeOut(400);
-              $("#result").hide().empty().append(data).fadeIn(600, function(){
-                $(this).delay(1000).fadeOut(2000);
-              });
+          } else {
+            $('#samples').slideUp(300);
+            /* get some values from elements on the page: */
+            var $form = $(this),
+                term = $form.find('input[name="url"]').val(),
+                url = $form.attr('action');
+            $("#pic_url").empty();
 
-              if($('#flashes').hasClass('hidden')){
-                $('#flashes').removeClass('hidden').animate({'margin-top': 0}, 300);
+            /* Send the data using post and put the results in a div */
+            $('#upload-form .spinner').fadeIn(400);
+            $.post(url, { url:term,queue_name:'<?php echo $input_queue_id;?>'},
+              function (data) {
+                  
+                $('#upload-form .spinner').fadeOut(400);
+                $("#result").hide().empty().removeClass('error').append(data).fadeIn(600, function(){
+                  $(this).delay(1000).fadeOut(2000);
+                });
+
+                if($('#flashes').hasClass('hidden')){
+                  $('#flashes').removeClass('hidden').animate({'margin-top': 0}, 300);
+                }
+
+                $('#code-example').slideUp(200);
+                $('#posted-image').html('<img src="'+$('#pic_url').val()+'">');
+                $('#posted-image').slideDown(200, function(){
+                });
+
+
+                $('#step-1').animate({'margin-left': '0%'}, 750, 'linear'); 
+                $('#step-1').animate({'margin-right': '0%'}, 1000, 'linear', function(){
+                  $('#step-3').animate({opacity: 1}, 500);
+                  
+                  $('#gears').delay(800).addClass('moving');
+                  $('#process-image').delay(1200).animate({left: '40%', opacity: '1'}, 1500, function(){
+                      $(this).animate({left: '95%', opacity: '0'}, 1500, function(){
+                          $(this).css('left', '-10%');
+                          $('#gears').delay(400).removeClass('moving');
+                          $('#flashes').html('and worker has been started process images...');
+                      });
+                  });
+                  $('#send-images img').delay(1500).animate({'opacity': '.75'}, 1000, function(){
+                      $('#send-images img').animate({'opacity': '.1'}, 1500);
+                  });
+
+                  $('#step-3 .spinner').delay(4200).fadeIn(500);
+                  $('#output_queue').delay(1500).fadeOut(500);
+                });
+
+
+
               }
+            );
+            
+          } // else end
 
-              $('#code-example').slideUp(200);
-              $('#posted-image').html('<img src="'+$('#pic_url').val()+'">');
-              $('#posted-image').slideDown(200, function(){
-              });
-
-
-              $('#step-1').animate({'margin-left': '0%'}, 750, 'linear'); 
-              $('#step-1').animate({'margin-right': '0%'}, 1000, 'linear', function(){
-                $('#step-3').animate({opacity: 1}, 500);
-                
-                $('#gears').delay(800).addClass('moving');
-                $('#process-image').delay(1200).animate({left: '40%', opacity: '1'}, 1500, function(){
-                    $(this).animate({left: '95%', opacity: '0'}, 1500, function(){
-                        $(this).css('left', '-10%');
-                        $('#gears').delay(400).removeClass('moving');
-                        $('#flashes').html('and worker has been started process images...');
-                    });
-                });
-                $('#send-images img').delay(1500).animate({'opacity': '.75'}, 1000, function(){
-                    $('#send-images img').animate({'opacity': '.1'}, 1500);
-                });
-
-                $('#step-3 .spinner').delay(4200).fadeIn(500);
-                $('#output_queue').delay(1500).fadeOut(500);
-              });
-
-
-
-            }
-          );
         });
     });
 </script>

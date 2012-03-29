@@ -446,6 +446,11 @@ code {
   left: 50%;
   margin-left: -86px;
   display: none;
+  line-height: 1.3em;
+}
+
+#result.error {
+  background: rgba(230, 115, 0, .8);
 }
 
 #result-flow {
