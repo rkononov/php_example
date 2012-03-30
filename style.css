@@ -385,9 +385,19 @@ code {
 
 #output_queue {
   position: absolute;
-  bottom: 30px;
+  bottom: 80px;
   left: 50px;
   display: none;
+  text-align: center;
+  width: 300px;
+  font-size: 20px;
+  font-family: Conv_gillsans, sans-serif;
+}
+
+#send-spinner {
+  position: absolute;
+  top: 200px;
+  left: 130px;  
 }
 
 #output_queue img {
@@ -510,8 +520,9 @@ code {
   width: 180px;
   height: 180px;
   position: absolute;
-  top: 120px;
-  left: 90px;
+  bottom: 90px;
+  left: 110px;
+  display: none;
 }
 
 #gears.moving .gear-small {

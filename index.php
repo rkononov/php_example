@@ -116,7 +116,9 @@ $ironmq->postMessage("input_queue",
             <img src="images/arrow-left.png" alt="">
         </div>
 
-        <div id="gears">
+        <img id="send-spinner" src="images/ajax-loader.png" class="spinner">
+
+        <!-- <div id="gears">
           <div class="gear-small shadow">
             <object data="images/gear-small-shadow.svg" type="image/svg+xml" ></object>
           </div>
@@ -129,11 +131,27 @@ $ironmq->postMessage("input_queue",
           <div class="gear-big">
             <object data="images/gear-big.svg" type="image/svg+xml" ></object>
           </div>
-        </div>
+        </div> -->
     </div>
 
     <div id="step-3" class="transform-step">
-      <img src="images/ajax-loader.gif" class="spinner">
+
+      <div id="gears">
+        <div class="gear-small shadow">
+          <object data="images/gear-small-shadow.svg" type="image/svg+xml" ></object>
+        </div>
+        <div class="gear-small">
+          <object data="images/gear-small.svg" type="image/svg+xml" ></object>
+        </div>
+        <div class="gear-big shadow">
+          <object data="images/gear-big-shadow.svg" type="image/svg+xml" ></object>
+        </div>
+        <div class="gear-big">
+          <object data="images/gear-big.svg" type="image/svg+xml" ></object>
+        </div>
+      </div>
+
+      <!-- <img src="images/ajax-loader.gif" class="spinner"> -->
 
       <h2>And See <b>IronWorker</b> Magick</h2>
       <div id="output_queue">
@@ -219,6 +237,11 @@ $ironmq->postMessage("input_queue",
           }, 100);
         });;
 
+        $('a.smooth-scroll').live('click', function(e){
+          e.preventDefault();
+          $('html, body').animate({scrollTop: $( $(e.target).attr('href') ).offset().top}, 'slow');
+        });
+
         setInterval(function () {
             $.get('/mq/getMessage.php?queue_name=<?php echo $input_queue_id;?>', null, function (data) {
               if (data) {
@@ -241,13 +264,18 @@ $ironmq->postMessage("input_queue",
 
             $.get('/mq/getMessage.php?queue_name=<?php echo $output_queue_id;?>', null, function (data) {
               if (data) {
-                $('#gears').addClass('moving');
-                $('#step-3 .spinner').fadeOut(400);
+                
+                $('#step-3').css('background-image', 'url(images/step-3-bg.png)');
+                $('#gears').fadeOut(100).removeClass('moving');
+
+                $('#send-spinner').attr('src', "images/ajax-loader.gif");
+                // $('#step-3 .spinner').fadeOut(400);
                 $('#step-3').animate({'background-position-y': '40%'}, 500);
                 $('#processed-image').animate({left: '40%', opacity: '1'}, 1500, function(){
                   $(this).animate({left: '-10%', opacity: '0'}, 1500, function(){
                     $(this).css('left', '100%');
                     $('#gears').delay(800).removeClass('moving');
+                    $('#send-spinner').attr('src', "images/ajax-loader.png");
                     $('#flashes').html("Check processed images below. Here is the code we are executing on the image on <a href='https://github.com/rkononov/php_example' target='_blank' title='Check App Sources on Github'>Github</a>");
                   });
                 });
@@ -259,9 +287,11 @@ $ironmq->postMessage("input_queue",
 
                 $('#output_queue').html('');
                 
-                $('#output_queue').append('<img src="'+parsed["thumbnail"]+'" >'+
-                  '<img src="'+parsed["rotated"]+'" >'+
-                  '<img src="'+parsed["grayscale"]+'" >');
+                // $('#output_queue').append('<img src="'+parsed["thumbnail"]+'" >'+
+                //   '<img src="'+parsed["rotated"]+'" >'+
+                //   '<img src="'+parsed["grayscale"]+'" >');
+                
+                $('#output_queue').html('Completed! <a href="#result-flow" class="smooth-scroll" title="">Check the results &darr;</a>');
                 
                 $('#output_queue').fadeIn(1000);
 
@@ -320,11 +350,17 @@ $ironmq->postMessage("input_queue",
                 $('#step-1').animate({'margin-right': '0%'}, 1000, 'linear', function(){
                   $('#step-3').animate({opacity: 1}, 500);
                   
-                  $('#gears').delay(800).addClass('moving');
+                  // $('#gears').delay(800).addClass('moving');
+                  $('#send-spinner').attr('src', "images/ajax-loader.gif");
                   $('#process-image').delay(1200).animate({left: '40%', opacity: '1'}, 1500, function(){
                       $(this).animate({left: '95%', opacity: '0'}, 1500, function(){
                           $(this).css('left', '-10%');
-                          $('#gears').delay(400).removeClass('moving');
+                          //$('#gears').delay(400).removeClass('moving');
+                          $('#step-3').css('background-image', 'none');
+                          $('#gears').fadeIn(300).addClass('moving');
+                          $('#output_queue').html('');
+
+                          $('#send-spinner').attr('src', "images/ajax-loader.png");
                           $('#flashes').html('and worker has been started process images...');
                       });
                   });
